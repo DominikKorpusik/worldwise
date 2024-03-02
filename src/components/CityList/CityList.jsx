@@ -5,8 +5,11 @@ import "../../../src/data/cities.json";
 import Spinner from "../Spinner/Spinner";
 import CityItem from "../CityItem/CityItem";
 import Message from "../Message/Message";
+import { useCities } from "../../contexts/CitiesContext/CitiesContext";
 
-function CityList({ cities, isLoading }) {
+function CityList() {
+  const { cities, isLoading } = useCities();
+
   if (isLoading) {
     return <Spinner />;
   }
