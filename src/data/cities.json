@@ -25,63 +25,15 @@
       "id": "2ccc"
     },
     {
-      "cityName": "Berlin",
-      "country": "Germany",
-      "emoji": "🇩🇪",
-      "date": "2027-02-12T09:24:11.863Z",
-      "notes": "Amazing 😃",
-      "position": {
-        "lat": 52.53586782505711,
-        "lng": 13.376933665713324
-      },
-      "id": "223f"
-    },
-    {
+      "id": "8448",
       "cityName": "Warsaw",
       "country": "Poland",
+      "date": "2024-03-04T16:04:53.204Z",
+      "notes": "",
       "emoji": "🇵🇱",
-      "date": "2027-02-12T09:24:11.863Z",
-      "notes": "The Best",
       "position": {
-        "lat": 52.237049,
-        "lng": 21.017532
-      },
-      "id": "25fc"
-    },
-    {
-      "id": "ab92",
-      "cityName": "Piadena Drizzona",
-      "country": "Italy",
-      "date": "2024-03-04T15:28:57.647Z",
-      "notes": "",
-      "emoji": "🇮🇹",
-      "position": {
-        "lat": "45.139962776255175",
-        "lng": "10.349375695903682"
-      }
-    },
-    {
-      "id": "25bc",
-      "cityName": "Ayranci",
-      "country": "Turkiye",
-      "date": "2024-03-04T15:28:59.840Z",
-      "notes": "",
-      "emoji": "🇹🇷",
-      "position": {
-        "lat": "37.52715361723378",
-        "lng": "33.59619140625001"
-      }
-    },
-    {
-      "id": "5901",
-      "cityName": "Ouled Harkat",
-      "country": "Algeria",
-      "date": "2024-03-04T15:32:27.276Z",
-      "notes": "",
-      "emoji": "🇩🇿",
-      "position": {
-        "lat": "34.25270272908606",
-        "lng": "4.965669394024684"
+        "lat": "52.22443459871999",
+        "lng": "20.9893798828125"
       }
     }
   ]
