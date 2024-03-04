@@ -1,11 +1,18 @@
 // "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=0&longitude=0"
 
 import { useEffect, useState } from "react";
+import { useURLPosition } from "../../hooks/useURLPosition/useURLPosition";
+import { useCities } from "../../contexts/CitiesContext/CitiesContext";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./Form.module.css";
 import Button from "../Button/Button";
 import BackButton from "../BackButton/BackButton";
-import { useSearchParams } from "react-router-dom";
+import Message from "../Message/Message";
+import Spinner from "../Spinner/Spinner";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { map } from "leaflet";
 
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -15,40 +22,80 @@ export function convertToEmoji(countryCode) {
   return String.fromCodePoint(...codePoints);
 }
 
+const BASE_ULR = "https://api.bigdatacloud.net/data/reverse-geocode-client";
+
 function Form() {
+  const [isLoadingGeocoding, setIsLoadingGeocoding] = useState(false);
   const [cityName, setCityName] = useState("");
   const [country, setCountry] = useState("");
   const [date, setDate] = useState(new Date());
   const [notes, setNotes] = useState("");
-
-  const [searchParams] = useSearchParams();
-  const lat = searchParams.get("lat");
-  const lng = searchParams.get("lng");
+  const [mapLat, mapLng] = useURLPosition();
+  const [emoji, setEmoji] = useState("");
+  const [geocodingError, setGeocodingError] = useState(null);
+  const { createCity, isLoading } = useCities();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    async function fetchData() {
+    if (!mapLat || !mapLng) return;
+
+    async function fetchCityData() {
       try {
-        if (lat && lng) {
+        if (mapLat && mapLng) {
+          setIsLoadingGeocoding(true);
+          setGeocodingError(null);
           const response = await fetch(
-            "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" +
-              lat +
-              "&longitude=" +
-              lng
+            BASE_ULR + "?latitude=" + mapLat + "&longitude=" + mapLng
           );
           const data = await response.json();
-          setCityName(data.city);
-          setCountry(data.countryCode);
+
+          if (!data.countryCode)
+            throw new Error(
+              "That doesn't look like a valid location. Please try again."
+            );
+
+          setCityName(data.city || data.locality || "");
+          setCountry(data.countryName);
+          setEmoji(convertToEmoji(data.countryCode));
         }
       } catch (error) {
-        console.error(error);
+        setGeocodingError(error.message);
+      } finally {
+        setIsLoadingGeocoding(false);
       }
     }
 
-    fetchData();
-  }, [lat, lng]);
+    fetchCityData();
+  }, [mapLat, mapLng]);
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    if (!cityName || !date) return;
+    const city = {
+      cityName,
+      country,
+      date,
+      notes,
+      emoji,
+      position: { lat: mapLat, lng: mapLng },
+    };
+
+    await createCity(city);
+    navigate("/app/cities");
+  }
+
+  if (isLoadingGeocoding) return <Spinner />;
+  if (!mapLat || !mapLng)
+    return (
+      <Message message="We couldn't find your location. Try to click again." />
+    );
+  if (geocodingError) return <Message message={geocodingError} />;
 
   return (
-    <form className={styles.form}>
+    <form
+      className={`${styles.form} ${isLoading ? styles.loading : ""}`}
+      onSubmit={(e) => handleSubmit(e)}
+    >
       <div className={styles.row}>
         <label htmlFor="cityName">City name</label>
         <input
@@ -56,15 +103,16 @@ function Form() {
           onChange={(e) => setCityName(e.target.value)}
           value={cityName}
         />
-        {/* <span className={styles.flag}>{emoji}</span> */}
+        <span className={styles.flag}>{emoji}</span>
       </div>
 
       <div className={styles.row}>
         <label htmlFor="date">When did you go to {cityName}?</label>
-        <input
+        <DatePicker
           id="date"
-          onChange={(e) => setDate(e.target.value)}
-          value={date}
+          onChange={(date) => setDate(date)}
+          selected={date}
+          dateFormat="dd/MM/yyyy"
         />
       </div>
 

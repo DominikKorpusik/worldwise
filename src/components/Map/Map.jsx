@@ -8,27 +8,44 @@ import {
   useMapEvents,
 } from "react-leaflet";
 import { useCities } from "../../contexts/CitiesContext/CitiesContext";
-
-import styles from "./Map.module.css";
 import { useEffect, useState } from "react";
+import { useGeolocation } from "../../hooks/useGeolocation/useGeolocation";
+import Button from "../Button/Button";
+import styles from "./Map.module.css";
+import { useURLPosition } from "../../hooks/useURLPosition/useURLPosition";
 const WARSAW_COORDINATES = [52.237049, 21.017532];
 
 function Map() {
   const { cities } = useCities();
   const [mapPosition, setMapPosition] = useState(WARSAW_COORDINATES);
-
-  const [searchParams] = useSearchParams();
-  const lat = searchParams.get("lat");
-  const lng = searchParams.get("lng");
+  const {
+    getPosition,
+    isLoading: isLoadingPosition,
+    position: geolocationPosition,
+  } = useGeolocation();
+  const [mapLat, mapLng] = useURLPosition();
 
   useEffect(() => {
-    if (lat && lng) {
-      setMapPosition([lat, lng]);
+    if (mapLat && mapLng) {
+      setMapPosition([mapLat, mapLng]);
     }
-  }, [lat, lng]);
+  }, [mapLat, mapLng]);
+
+  useEffect(
+    function () {
+      if (geolocationPosition)
+        setMapPosition([geolocationPosition.lat, geolocationPosition.lng]);
+    },
+    [geolocationPosition]
+  );
 
   return (
     <div className={styles.mapContainer}>
+      {!geolocationPosition && (
+        <Button type="position" onClick={getPosition}>
+          {isLoadingPosition ? "Loading..." : "Use your position"}
+        </Button>
+      )}
       <MapContainer
         center={mapPosition}
         zoom={6}
