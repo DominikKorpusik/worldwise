@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import styles from "./City.module.css";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useCities } from "../../contexts/CitiesContext/CitiesContext";
 import { useEffect } from "react";
 
@@ -23,7 +23,7 @@ function City() {
     function () {
       getCity(id);
     },
-    [id]
+    [id, getCity]
   );
 
   const { cityName, emoji, date, notes } = currentCity;
