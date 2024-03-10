@@ -7,10 +7,40 @@ import {
 } from "react";
 const BASE_URL = "http://localhost:3001";
 
+const cities = [
+  {
+    cityName: "Lisbon",
+    country: "Portugal",
+    emoji: "🇵🇹",
+    date: "2027-10-31T15:59:59.138Z",
+    notes: "My favorite city so far!",
+    position: { lat: 38.727881642324164, lng: -9.140900099907554 },
+    id: "2dbc",
+  },
+  {
+    cityName: "Madrid",
+    country: "Spain",
+    emoji: "🇪🇸",
+    date: "2027-07-15T08:22:53.976Z",
+    notes: "",
+    position: { lat: 40.46635901755316, lng: -3.7133789062500004 },
+    id: "2ccc",
+  },
+  {
+    cityName: "Warsaw",
+    country: "Poland",
+    emoji: "🇵🇱",
+    date: "2024-03-04T16:04:53.204Z",
+    notes: "",
+    position: { lat: 52.22443459871999, lng: 20.9893798828125 },
+    id: "8448",
+  },
+];
+
 const CitiesContext = createContext();
 
 const initialState = {
-  cities: [],
+  cities: cities,
   currentCity: {},
   isLoading: true,
   error: "",
