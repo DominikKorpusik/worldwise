@@ -42,6 +42,7 @@ Is a mapping tool that allows users to mark places they've visited. Users can sa
    
 ## Acknowledgments
 * [Jonas Schmedtman ](https://codingheroes.io/resources/)
+* [Zero To Mastery](https://zerotomastery.io/blog/)
 * [React.js](https://react.dev/learn)
 * [React Leaflet](https://react-leaflet.js.org/)
 * [OpenStreetMap](https://www.openstreetmap.org/)
