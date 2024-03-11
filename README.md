@@ -18,8 +18,10 @@ Is a mapping tool that allows users to mark places they've visited. Users can sa
 ### Built With
 
 * React
+* React Leaflet + OpenStreetMap
 * Vite
-* Netlify
+* CSS Modules
+* JSON Server
 
 ### Prerequisites
 * npm
