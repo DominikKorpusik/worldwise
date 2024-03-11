@@ -18,6 +18,8 @@ Is a mapping tool that allows users to mark places they've visited. Users can sa
 ### Built With
 
 * React
+* Vite
+* Netlify
 
 ### Prerequisites
 * npm
@@ -37,11 +39,10 @@ Is a mapping tool that allows users to mark places they've visited. Users can sa
    ```
    
 ## Acknowledgments
-
-* [React.js](https://react.dev/learn)
 * [Jonas Schmedtman ](https://codingheroes.io/resources/)
+* [React.js](https://react.dev/learn)
 * [React Leaflet](https://react-leaflet.js.org/)
 * [OpenStreetMap](https://www.openstreetmap.org/)
+* [Netlify](netlify.com)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
