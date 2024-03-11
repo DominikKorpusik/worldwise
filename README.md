@@ -15,30 +15,33 @@ Is a mapping tool that allows users to mark places they've visited. Users can sa
   </p>
 </div>
 
+### Built With
 
-
-An application
+* React
 
 ### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
 * npm
   ```sh
   npm install 
   ```
-Then
 
-  * npm
-  ```sh
-  npm run dev 
-  ```
+### Installation
 
-JSON server
+1. First run the JSON server
+   ```sh
+   npm run server
+   ```
+2. Use Vite to run app
+   ```sh
+   npm run dev
+   ```
+   
+## Acknowledgments
 
-  * npm
-  ```sh
-  npm run server 
-  ```
+* [React.js](https://react.dev/learn)
+* [Jonas Schmedtman ](https://codingheroes.io/resources/)
+* [React Leaflet](https://react-leaflet.js.org/)
+* [OpenStreetMap](https://www.openstreetmap.org/)
 
-
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
